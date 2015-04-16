@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static android.database.DatabaseUtils.dumpCursorToString;
+
 
 public class MainActivity extends ActionBarActivity {
     private static final String TAG = "PRANAY";
@@ -20,6 +22,12 @@ public class MainActivity extends ActionBarActivity {
         //Todo: Remove ContentResolver query from the UI thread to a separate thread
 
 
+
+
+
+        // Get the ContentResolver
+        ContentResolver contentResolver = getContentResolver();
+
         //Define the paramaters for the ContentResolver query to the Contacts Provider
 
         //Define the columns to be extracted
@@ -29,8 +37,6 @@ public class MainActivity extends ActionBarActivity {
                         Contacts.DISPLAY_NAME
                 };
 
-        // Get the ContentResolver
-        ContentResolver contentResolver = getContentResolver();
 
         //Define the selection criteria for rows to be displayed
         String mSelectionClause=null;
@@ -72,6 +78,8 @@ public class MainActivity extends ActionBarActivity {
         } else {
             // Insert code here to do something with the results
             Log.d(TAG,"The total items returned by the query to content provider: " + cursor.getCount());
+            //Debugging
+            Log.d(TAG,"Cursor: " + dumpCursorToString(cursor));
 
         }
 
