@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import static android.database.DatabaseUtils.dumpCursorToString;
 
@@ -85,16 +87,34 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-        //Todo: Create a SimpleCursorAdapter object containing the Cursor returned by query
-        //Todo: Set the adapter for the listview
+
+        String [] mNameColumns = {
+                Contacts.DISPLAY_NAME
+        } ;
+
+        //int[] mWordListItems={R.id.listview_names};
+        int[] mWordListItems={R.id.name};
+
+        //Create a simple cursor adapter
+        SimpleCursorAdapter mCursorAdapter = new SimpleCursorAdapter(
+                getApplicationContext(), //Application's Context Object
+                R.layout.list_item,       //XML layout for one row in the listview
+                cursor,                  //Result from the query
+                mNameColumns,            //String array with the column names
+                mWordListItems,         //Integer array of view IDs in the row layout
+                0);
 
         setContentView(R.layout.activity_main);
+
+        //Todo: Set the adapter for the listview
+        ListView listView = (ListView)findViewById(
+                R.id.listview_names);
+        listView.setAdapter(mCursorAdapter);
 
 
     }
 
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
