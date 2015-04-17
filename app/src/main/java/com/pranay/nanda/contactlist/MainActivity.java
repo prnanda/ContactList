@@ -44,6 +44,8 @@ public class MainActivity extends ActionBarActivity {
         /*String whereClause = "((" + Contacts.DISPLAY_NAME + " NOTNULL) AND ("
                 + Contacts.DISPLAY_NAME + " != ' '))";*/
 
+        // Todo: Understand the selection clause and selection arguments better(querying content provider)
+
         // Initializes an array to contain selection arguments
         String[] mSelectionArgs = {""};
 
@@ -78,11 +80,13 @@ public class MainActivity extends ActionBarActivity {
         } else {
             // Insert code here to do something with the results
             Log.d(TAG,"The total items returned by the query to content provider: " + cursor.getCount());
-            //Debugging
+            //Debugging: Print the cursor to the logs
             Log.d(TAG,"Cursor: " + dumpCursorToString(cursor));
 
         }
 
+        //Todo: Create a SimpleCursorAdapter object containing the Cursor returned by query
+        //Todo: Set the adapter for the listview
 
         setContentView(R.layout.activity_main);
 
