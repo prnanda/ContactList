@@ -11,10 +11,6 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import java.util.Set;
-
-import static android.database.DatabaseUtils.dumpCursorToString;
-
 
 public class MainActivity extends ActionBarActivity {
     private static final String TAG = "PRANAY";
@@ -23,9 +19,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Todo: Remove ContentResolver query from the UI thread to a separate thread
-
-
+        //Todo: Remove ContentResolver query from the UI thread to a separate thread(CursorLoader)
 
 
 
@@ -38,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
         String[] mProjection =
                 {
                         Contacts._ID,
-                        Contacts.DISPLAY_NAME
+                        Contacts.DISPLAY_NAME_PRIMARY
                 };
 
 
@@ -55,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         // Sort alphabetically by Display Name
-        String mSortOrder = Contacts.DISPLAY_NAME + " ASC";
+        String mSortOrder = Contacts.DISPLAY_NAME_PRIMARY + " ASC";
 
         // query contacts ContentProvider
         Cursor cursor = contentResolver.query(Contacts.CONTENT_URI,
@@ -65,36 +59,28 @@ public class MainActivity extends ActionBarActivity {
         //View the results in the Cursor object on the terminal
 
         if (null == cursor) {
-        /*
-         * Insert code here to handle the error. Be sure not to use the cursor! You may want to
-         * call android.util.Log.e() to log this error.
-         *
-         */
          Log.e(TAG, "Contacts query failed!");
 
-            // If the Cursor is empty, the provider found no matches
-        } else if (cursor.getCount() < 1) {
 
-            /*
-         * Insert code here to notify the user that the search was unsuccessful. This isn't necessarily
-         * an error. You may want to offer the user the option to insert a new row, or re-type the
-         * search term.
-         */
+        } else if (cursor.getCount() < 1) {
+            // If the Cursor is empty, the provider found no matches
+            Log.d(TAG, "Cursor is empty, no contacts found");
 
         } else {
-            // Insert code here to do something with the results
+
             Log.d(TAG,"The total items returned by the query to content provider: " + cursor.getCount());
             //Debugging: Print the cursor to the logs
-            Log.d(TAG,"Cursor: " + dumpCursorToString(cursor));
+            //Log.d(TAG,"Cursor: " + dumpCursorToString(cursor));
 
         }
 
 
+        //Define list of columns to retrieve from Cursor to load to output row
         String [] mNameColumns = {
-                Contacts.DISPLAY_NAME
+                Contacts.DISPLAY_NAME_PRIMARY
         } ;
 
-        //int[] mWordListItems={R.id.listview_names};
+        // Define a list of View IDs that will receive the Cursor columns for each row
         int[] mWordListItems={R.id.name};
 
         //Create a simple cursor adapter
@@ -106,6 +92,7 @@ public class MainActivity extends ActionBarActivity {
                 mWordListItems,         //Integer array of view IDs in the row layout
                 0);
 
+        //Inflate the layout and associate it with the Activity
         setContentView(R.layout.activity_main);
 
         //Set the adapter for the listview
