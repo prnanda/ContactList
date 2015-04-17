@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.Set;
+
 import static android.database.DatabaseUtils.dumpCursorToString;
 
 
@@ -106,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_main);
 
-        //Todo: Set the adapter for the listview
+        //Set the adapter for the listview
         ListView listView = (ListView)findViewById(
                 R.id.listview_names);
         listView.setAdapter(mCursorAdapter);
