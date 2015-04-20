@@ -18,10 +18,11 @@ android {
         }
     }
 
+    /*
     //Don't fail build for lint errors
     lintOptions {
         abortOnError false
-    }
+    }*/
 }
 
 dependencies {

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -19,8 +17,25 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Todo: Remove ContentResolver query from the UI thread to a separate thread(CursorLoader)
+        //Todo: Remove ContentResolver query from the UI thread to a separate thread(CursorLoader):
+        //AsyncTask Class, don't spawn new threads'
 
+        /*
+        Feedback from Igor:
+
+        1. Why ActionBarActivity? Don't use if not necessary
+        2. Why Fragment? Be minimal
+        3. Over Commenting
+        4. Java naming convention: m=> member variable, eg: mValue.
+        5. Clean up unusegit addd methods such as onCreate options
+        6. Remove fragment
+        7. Cursor leak. Close the cursor object when you are done with it.
+            if (null != cursor) {
+            // Do your cursor handling here
+            cursor.close();
+            }
+         8. turn abortOnError back on. critical lint findings are important
+         */
 
 
         // Get the ContentResolver
@@ -37,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         //Define the selection criteria for rows to be displayed
-        String mSelectionClause=null;
+        String mSelectionClause=null;  //Contacts._ID ? IS not null
 
         /*String whereClause = "((" + Contacts.DISPLAY_NAME + " NOTNULL) AND ("
                 + Contacts.DISPLAY_NAME + " != ' '))";*/
@@ -103,25 +118,4 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        //noinspection SimplifiableIfStatement
-
-        return super.onOptionsItemSelected(item);
-    }
 }
