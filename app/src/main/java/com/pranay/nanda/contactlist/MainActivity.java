@@ -1,16 +1,16 @@
 package com.pranay.nanda.contactlist;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
     private static final String TAG = "PRANAY";
 
     @Override
