@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 
         //Todo: Remove ContentResolver query from the UI thread to a separate thread(CursorLoader):
         //AsyncTask Class, don't spawn new threads'
+        //View the implementation in the Omni app
 
         /*
 
@@ -42,9 +43,6 @@ public class MainActivity extends Activity {
 
         //Define the selection criteria for rows to be displayed
         String SelectionClause=null;  //Contacts._ID ? IS not null
-
-        /*String whereClause = "((" + Contacts.DISPLAY_NAME + " NOTNULL) AND ("
-                + Contacts.DISPLAY_NAME + " != ' '))";*/
 
         // Todo: Understand the selection clause and selection arguments better(querying content provider)
 
